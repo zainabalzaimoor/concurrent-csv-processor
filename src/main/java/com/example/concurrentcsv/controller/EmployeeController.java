@@ -3,9 +3,8 @@ package com.example.concurrentcsv.controller;
 import com.example.concurrentcsv.model.Employee;
 import com.example.concurrentcsv.service.ConcurrentProcessingService;
 import com.example.concurrentcsv.service.CsvReaderService;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 
@@ -13,8 +12,8 @@ import java.util.List;
 @RequestMapping("api/employees")
 public class EmployeeController {
 
-    private final CsvReaderService csvReaderService;
     private final ConcurrentProcessingService processingService;
+    private final CsvReaderService csvReaderService;
 
     public EmployeeController(CsvReaderService csvReaderService,
                               ConcurrentProcessingService processingService) {
@@ -22,12 +21,10 @@ public class EmployeeController {
         this.processingService = processingService;
     }
 
-    @GetMapping("/process")
-    public List<Employee> processEmployees() throws Exception {
+    @PostMapping("/increase-salaries")
+    public List<Employee> increaseSalaries(@RequestParam("file") MultipartFile file) throws Exception {
 
-        List<Employee> employees =
-                csvReaderService.readEmployees("employees.csv");
-
+        List<Employee> employees = csvReaderService.readEmployees(file);
         processingService.processEmployees(employees);
 
         return employees;
