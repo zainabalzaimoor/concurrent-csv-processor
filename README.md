@@ -28,3 +28,6 @@ A template file `employe.csv` is provided:
 ```csv
 name,salary,joinedDate,role,projectCompletionPercentage
 John Doe,5000,2023-01-01,Employee,75.0
+```
+- Headers must remain unchanged.
+- Users can add multiple employees.
