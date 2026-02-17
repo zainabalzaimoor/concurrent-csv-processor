@@ -2,9 +2,11 @@ package com.example.concurrentcsv.service;
 
 import com.example.concurrentcsv.model.Employee;
 import com.opencsv.CSVReader;
+import com.opencsv.CSVWriter;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.io.FileWriter;
 import java.io.InputStreamReader;
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -35,4 +37,26 @@ public class CsvReaderService {
 
         return employees;
     }
+
+    public void saveUpdatedEmployees(List<Employee> employees, String outputFilePath) throws Exception {
+        try (CSVWriter writer = new CSVWriter(new FileWriter(outputFilePath))) {
+
+            // Write header
+            String[] header = {"name", "salary", "joinedDate", "role", "projectCompletionPercentage"};
+            writer.writeNext(header);
+
+            // Write employee data
+            for (Employee emp : employees) {
+                String[] line = {
+                        emp.getName(),
+                        String.valueOf(emp.getSalary()),
+                        emp.getJoinedDate().toString(),
+                        emp.getRole(),
+                        String.valueOf(emp.getProjectCompletionPercentage())
+                };
+                writer.writeNext(line);
+            }
+        }
+    }
+
 }
