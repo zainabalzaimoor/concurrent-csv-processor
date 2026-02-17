@@ -23,7 +23,7 @@ The application reads employee information, calculates salary increments based o
 
 ## 📂 CSV Template
 
-A template file `employee_template.csv` is provided:
+A template file `employe.csv` is provided:
 
 ```csv
 name,salary,joinedDate,role,projectCompletionPercentage
