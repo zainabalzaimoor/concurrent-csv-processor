@@ -3,6 +3,7 @@ package com.example.concurrentcsv.controller;
 import com.example.concurrentcsv.model.Employee;
 import com.example.concurrentcsv.service.ConcurrentProcessingService;
 import com.example.concurrentcsv.service.CsvReaderService;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -22,11 +23,19 @@ public class EmployeeController {
     }
 
     @PostMapping("/increase-salaries")
-    public List<Employee> increaseSalaries(@RequestParam("file") MultipartFile file) throws Exception {
+    public ResponseEntity<String> increaseSalaries(@RequestParam("file") MultipartFile file) throws Exception {
 
+        // 1️⃣ Read CSV
         List<Employee> employees = csvReaderService.readEmployees(file);
+
+        // 2️⃣ Process salaries concurrently
         processingService.processEmployees(employees);
 
-        return employees;
+        // 3️⃣ Save back to CSV (overwrite or new file)
+        String outputPath = "updated_employees.csv";
+        csvReaderService.saveUpdatedEmployees(employees, outputPath);
+
+        return ResponseEntity.ok("Salaries updated successfully. File saved at " + outputPath);
     }
+
 }
