@@ -1,21 +1,16 @@
 package com.example.concurrentcsv.model;
 
-import lombok.*;
-
 import java.time.LocalDate;
 import java.util.concurrent.atomic.AtomicReference;
 
-@Data
-@NoArgsConstructor
-@Getter
-@Setter
 public class Employee {
     private String name;
     private AtomicReference<Double> salary;
     private LocalDate joinedDate;
     private String role;
     private double projectCompletionPercentage;
-    // Explicit all-args constructor
+
+
     public Employee(String name, double salary, LocalDate joinedDate, String role, double projectCompletionPercentage) {
         this.name = name;
         this.salary = new AtomicReference<>(salary);
