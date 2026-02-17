@@ -5,7 +5,7 @@ The application reads employee information, calculates salary increments based o
 
 ---
 
-## 🚀 Features
+## ⭐ Features
 
 - Read employee data from a CSV file.
 - Apply salary increments concurrently using **thread pools**.
@@ -31,3 +31,16 @@ John Doe,5000,2023-01-01,Employee,75.0
 ```
 - Headers must remain unchanged.
 - Users can add multiple employees.
+  
+##  API Endpoints
+- Increase Salaries
+- URL: /employees/increase-salaries
+- Method: POST
+- Request: Multipart file upload (CSV)
+
+Parameters:
+
+| Name | Type          | Description                 |
+| ---- | ------------- | --------------------------- |
+| file | MultipartFile | CSV file with employee data |
+
