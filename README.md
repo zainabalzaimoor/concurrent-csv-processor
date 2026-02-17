@@ -17,7 +17,7 @@ The application reads employee information, calculates salary increments based o
     - Director → 5%
     - Manager → 2%
     - Employee → 1%
-- Return updated employees or save back to CSV.
+- Return updated employees in a csv file.
 
 ---
 
